@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luis Salas Luna · Desarrollador Full-Stack</title>
+<meta name="description" content="Desarrollador Full-Stack en Arequipa, Perú. Next.js, TypeScript, Supabase y AWS. Productos en producción con pagos, tiempo real y seguridad a nivel de base de datos.">
+<meta property="og:title" content="Luis Salas Luna · Desarrollador Full-Stack">
+<meta property="og:description" content="Next.js, TypeScript, Supabase y AWS. Productos en producción con pagos, tiempo real y seguridad.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F3F5F2;
+    --surface: #FFFFFF;
+    --ink: #172033;
+    --muted: #586174;
+    --line: #D8DDD6;
+    --accent: #1D6A84;
+    --seat: #E3A23B;
+    --seat-empty: #C9D1CC;
+    --table: #FFFFFF;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121A24;
+      --surface: #19232F;
+      --ink: #E8ECEF;
+      --muted: #A1ABB8;
+      --line: #2B3644;
+      --accent: #6FB8D2;
+      --seat: #E9AE4C;
+      --seat-empty: #3A4656;
+      --table: #223041;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Schibsted Grotesk", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  /* top bar */
+  .bar { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; font-size: 15px; }
+  .bar .handle { font-weight: 700; text-decoration: none; color: var(--ink); }
+  .lang { display: flex; gap: 4px; border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+  .lang button {
+    font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--muted);
+    padding: 4px 12px; border-radius: 999px; cursor: pointer;
+  }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; padding: 48px 0 72px; }
+  .hero h1 { font-size: clamp(38px, 5.2vw, 56px); line-height: 1.02; letter-spacing: -0.03em; margin: 0 0 20px; font-weight: 800; }
+  .hero .lead { font-size: 20px; color: var(--muted); max-width: 32ch; margin: 0 0 28px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-block; padding: 11px 18px; border-radius: 8px; font-weight: 600; font-size: 16px;
+    text-decoration: none; border: 1.5px solid var(--ink); color: var(--ink);
+  }
+  .btn.primary { background: var(--ink); color: var(--bg); }
+  .btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .where { margin-top: 24px; font-size: 15px; color: var(--muted); }
+
+  .plan { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+  .plan svg { width: 100%; height: auto; display: block; }
+  .plan figcaption { font-size: 14px; color: var(--muted); margin-top: 12px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .plan .count { font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 600; }
+  .seat { fill: var(--seat-empty); transition: fill .35s ease; }
+  .seat.on { fill: var(--seat); }
+  .tbl { fill: var(--table); stroke: var(--line); stroke-width: 1.5; }
+  .tlabel { fill: var(--muted); font: 600 11px "Schibsted Grotesk", sans-serif; text-anchor: middle; dominant-baseline: central; }
+
+  /* sections */
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: 28px; letter-spacing: -0.02em; margin: 0 0 8px; }
+  .intro { color: var(--muted); margin: 0 0 32px; max-width: 62ch; }
+
+  .project { display: grid; grid-template-columns: 260px 1fr; gap: 32px; padding: 28px 0; }
+  .project + .project { border-top: 1px dashed var(--line); }
+  .project h3 { font-size: 22px; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .meta { font-size: 15px; color: var(--muted); margin: 0 0 10px; }
+  .status { display: inline-block; font-size: 13px; font-weight: 600; padding: 2px 10px; border-radius: 999px; border: 1px solid currentColor; }
+  .status.live { color: #2E7D4F; }
+  .status.dev { color: var(--accent); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .status.live { color: #6CC495; } }
+  .project p { margin: 0 0 12px; max-width: 66ch; }
+  .project ul { margin: 0 0 12px; padding-left: 20px; max-width: 66ch; }
+  .project li { margin-bottom: 6px; }
+  .stack { font-size: 15px; color: var(--muted); }
+  .stack b { color: var(--ink); font-weight: 600; }
+  .links { display: flex; gap: 16px; flex-wrap: wrap; font-size: 15px; font-weight: 600; }
+
+  .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .skills h3 { font-size: 16px; margin: 0 0 8px; }
+  .skills p { margin: 0; color: var(--muted); }
+
+  .contact { display: flex; flex-wrap: wrap; gap: 12px 28px; font-size: 18px; }
+  footer { padding: 32px 0 48px; font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); }
+
+  @media (max-width: 820px) {
+    .hero { grid-template-columns: 1fr; padding-top: 24px; gap: 36px; }
+    .project { grid-template-columns: 1fr; gap: 8px; }
+    .skills { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .wrap { padding: 0 16px; }
+    body { font-size: 16px; }
+    .hero .lead { font-size: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .seat { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="bar">
+    <a class="handle" href="#">Luis Salas Luna</a>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div>
+        <h1 data-en="Full-stack developer. I build products that run in production.">Desarrollador full-stack. Construyo productos que funcionan en producción.</h1>
+        <p class="lead" data-en="Next.js, TypeScript, Supabase and AWS. Payments, real-time features and database-level security.">Next.js, TypeScript, Supabase y AWS. Pagos, tiempo real y seguridad a nivel de base de datos.</p>
+        <div class="actions">
+          <a class="btn primary" id="cv-link" href="cv/CV_Luis_Salas_ES.pdf" download data-en="Download CV">Descargar CV</a>
+          <a class="btn" href="mailto:cslesel24@gmail.com" data-en="Email me">Escríbeme</a>
+          <a class="btn" href="https://github.com/Lesel22">GitHub</a>
+          <!-- Reemplaza TU-USUARIO por tu usuario de LinkedIn. Mientras no lo cambies, el botón se oculta solo. -->
+          <a class="btn" id="linkedin" href="https://www.linkedin.com/in/TU-USUARIO/">LinkedIn</a>
+        </div>
+        <p class="where" data-en="Based in Arequipa, Peru · Open to remote roles and on-site in Arequipa or Lima">Arequipa, Perú · Disponible para trabajo remoto y presencial en Arequipa o Lima</p>
+      </div>
+
+      <figure class="plan" aria-label="Ilustración de un plano de mesas con asientos ocupándose en vivo">
+        <svg id="floor" viewBox="0 0 420 300" role="img" aria-hidden="true"></svg>
+        <figcaption>
+          <span data-en="Seat selection, like in GradHub">Selección de asientos, como en GradHub</span>
+          <span><span class="count" id="count">0</span> / <span id="total">48</span> <span data-en="seats taken">ocupados</span></span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <section id="proyectos">
+      <h2 data-en="Projects">Proyectos</h2>
+      <p class="intro" data-en="The first two are private client repositories, so the code isn't public. Happy to walk through the architecture and decisions in an interview.">Los dos primeros son repositorios privados de clientes, así que el código no es público. Puedo explicar la arquitectura y las decisiones en una entrevista.</p>
+
+      <article class="project">
+        <div>
+          <h3>GradHub</h3>
+          <p class="meta" data-en="Remote contractor · 2026">Contratista remoto · 2026</p>
+          <span class="status live" data-en="In production">En producción</span>
+        </div>
+        <div>
+          <p data-en="Platform for committees that organize university graduations in Mexico: packages, payments, attendee messaging and table and seat selection.">Plataforma para comités que organizan graduaciones universitarias en México: paquetes, pagos, mensajería con asistentes y selección de mesas y asientos.</p>
+          <ul>
+            <li data-en="Real-time seat selection with PostgreSQL RPCs, capacity validation and concurrency control, a turn-based queue and a live monitor.">Selección de asientos en tiempo real con RPCs en PostgreSQL, validación de cupos y control de concurrencia, cola por turnos y monitor en vivo.</li>
+            <li data-en="Visual floor-plan editor with Konva, reusable templates and sanitized SVG backgrounds.">Editor visual de planos con Konva, plantillas reutilizables y fondos SVG sanitizados.</li>
+            <li data-en="Openpay payments with installments, reconciliation and automatic refunds; WhatsApp inbox with Twilio.">Pagos con Openpay con abonos, conciliación y devoluciones automáticas; bandeja de WhatsApp con Twilio.</li>
+            <li data-en="Security hardening with RLS and a custom audit script; library security advisories reduced from 152 to 11.">Endurecimiento de seguridad con RLS y un script propio de auditoría; avisos de seguridad de librerías reducidos de 152 a 11.</li>
+          </ul>
+          <p class="stack"><b>Stack:</b> Next.js 16, React 19, TypeScript, Supabase, Konva, Openpay, Twilio, Turborepo, Vercel</p>
+        </div>
+      </article>
+
+      <article class="project">
+        <div>
+          <h3>Kurssy</h3>
+          <p class="meta" data-en="Remote contractor · 2026">Contratista remoto · 2026</p>
+          <span class="status dev" data-en="Pre-launch">Pre-lanzamiento</span>
+        </div>
+        <div>
+          <p data-en="Online learning platform (LMS) for Latin America, with separate apps for students, instructors and admins.">Plataforma de cursos online (LMS) para Latinoamérica, con apps separadas para estudiantes, instructores y administradores.</p>
+          <ul>
+            <li data-en="Monorepo with 3 apps on separate subdomains and shared authentication.">Monorepo con 3 apps en subdominios distintos y autenticación compartida.</li>
+            <li data-en="Stripe e-commerce: cart, stackable coupons, promotions and webhooks.">Ecommerce con Stripe: carrito, cupones combinables, promociones y webhooks.</li>
+            <li data-en="Instructor revenue sharing with an immutable earnings ledger and payout approvals.">Revenue sharing para instructores con ledger inmutable de ganancias y aprobación de retiros.</li>
+            <li data-en="Storage on AWS S3 and CloudFront with signed URLs, provisioned with Terraform.">Almacenamiento en AWS S3 y CloudFront con URLs firmadas, aprovisionado con Terraform.</li>
+          </ul>
+          <p class="stack"><b>Stack:</b> Next.js 16, React 19, TypeScript, Supabase, Stripe, AWS, Terraform</p>
+        </div>
+      </article>
+
+      <article class="project">
+        <div>
+          <h3>Calenda</h3>
+          <p class="meta" data-en="Personal project">Proyecto personal</p>
+          <span class="status live" data-en="Public demo">Demo pública</span>
+        </div>
+        <div>
+          <p data-en="Event manager with JWT authentication, owner and participant roles, and image uploads.">Gestor de eventos con autenticación JWT, roles de propietario y participante, y carga de imágenes.</p>
+          <p class="stack"><b>Stack:</b> React, Django, PostgreSQL, Cloudinary, Render</p>
+          <div class="links">
+            <a href="https://calenda-d22.netlify.app" data-en="View demo">Ver demo</a>
+            <a href="https://github.com/Lesel22/Calenda" data-en="View code">Ver código</a>
+          </div>
+          <p class="meta" style="margin-top:8px" data-en="The demo may take a few seconds to start (free hosting).">La demo puede tardar unos segundos en iniciar (hosting gratuito).</p>
+        </div>
+      </article>
+
+      <article class="project">
+        <div>
+          <h3 data-en="Research">Investigación</h3>
+          <p class="meta">UCSP · 2023–2024</p>
+        </div>
+        <div>
+          <p data-en="Deep learning for detecting crime hotspots in Peruvian cities. I adapted a weather-forecasting model to crime detection as part of a funded research project.">Aprendizaje profundo para detectar zonas de alta frecuencia de crímenes en ciudades peruanas. Adapté un modelo de pronóstico del clima a la detección de crimen, dentro de un proyecto de investigación financiado.</p>
+          <div class="links">
+            <a href="https://repositorio.ucsp.edu.pe/item/cdb63673-9e16-44f3-a197-85608184ef32" data-en="Read the thesis (Spanish)">Leer la tesis</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="habilidades">
+      <h2 data-en="Skills">Habilidades</h2>
+      <div class="skills">
+        <div>
+          <h3>Frontend</h3>
+          <p>Next.js, React, TypeScript, Tailwind, Konva, Figma</p>
+        </div>
+        <div>
+          <h3 data-en="Backend and data">Backend y datos</h3>
+          <p>PostgreSQL, Supabase, SQL, Python, Django, Stripe, Openpay</p>
+        </div>
+        <div>
+          <h3 data-en="Infrastructure">Infraestructura</h3>
+          <p>AWS (S3, CloudFront, IAM), Terraform, Vercel, Git, Turborepo</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <h2 data-en="Contact">Contacto</h2>
+      <p class="intro" data-en="Looking for remote full-stack roles, or on-site in Arequipa or Lima.">Busco roles full-stack remotos, o presenciales en Arequipa o Lima.</p>
+      <div class="contact">
+        <a href="mailto:cslesel24@gmail.com">cslesel24@gmail.com</a>
+        <a href="https://github.com/Lesel22">github.com/Lesel22</a>
+        <a id="linkedin2" href="https://www.linkedin.com/in/TU-USUARIO/">LinkedIn</a>
+      </div>
+    </section>
+  </main>
+
+  <footer data-en="Luis Enrrique Salas Luna · Computer Science, Universidad Católica San Pablo">Luis Enrrique Salas Luna · Ciencia de la Computación, Universidad Católica San Pablo</footer>
+</div>
+
+<script>
+  // Oculta LinkedIn hasta que reemplaces el placeholder
+  document.querySelectorAll('#linkedin, #linkedin2').forEach(a => {
+    if (a.href.includes('TU-USUARIO')) a.style.display = 'none';
+  });
+
+  // Idioma
+  const els = document.querySelectorAll('[data-en]');
+  els.forEach(el => { el.dataset.es = el.textContent; });
+  const cv = document.getElementById('cv-link');
+  function setLang(lang) {
+    els.forEach(el => { el.textContent = lang === 'en' ? el.dataset.en : el.dataset.es; });
+    document.documentElement.lang = lang;
+    cv.href = lang === 'en' ? 'cv/CV_Luis_Salas_EN.pdf' : 'cv/CV_Luis_Salas_ES.pdf';
+    document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+  }
+  document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+  let saved = null;
+  try { saved = localStorage.getItem('lang'); } catch (e) {}
+  if (saved === 'en' || (!saved && !navigator.language.startsWith('es'))) setLang('en');
+
+  // Plano de mesas
+  const svg = document.getElementById('floor');
+  const NS = 'http://www.w3.org/2000/svg';
+  const tables = [[80,80],[210,80],[340,80],[80,215],[210,215],[340,215]];
+  const seats = [];
+  tables.forEach(([cx, cy], t) => {
+    const c = document.createElementNS(NS, 'circle');
+    c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', 34); c.setAttribute('class', 'tbl');
+    svg.appendChild(c);
+    const label = document.createElementNS(NS, 'text');
+    label.setAttribute('x', cx); label.setAttribute('y', cy); label.setAttribute('class', 'tlabel');
+    label.textContent = (document.documentElement.lang === 'en' ? 'Table ' : 'Mesa ') + (t + 1);
+    label.dataset.n = t + 1;
+    svg.appendChild(label);
+    for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * Math.PI * 2 - Math.PI / 2;
+      const s = document.createElementNS(NS, 'circle');
+      s.setAttribute('cx', cx + Math.cos(a) * 50); s.setAttribute('cy', cy + Math.sin(a) * 50);
+      s.setAttribute('r', 9); s.setAttribute('class', 'seat');
+      svg.appendChild(s); seats.push(s);
+    }
+  });
+  document.getElementById('total').textContent = seats.length;
+  const relabel = () => svg.querySelectorAll('.tlabel').forEach(l => {
+    l.textContent = (document.documentElement.lang === 'en' ? 'Table ' : 'Mesa ') + l.dataset.n;
+  });
+  relabel();
+  document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', relabel));
+
+  // Grupos que eligen asientos contiguos, uno tras otro
+  const count = document.getElementById('count');
+  const order = [];
+  [[0,0,4],[4,2,3],[1,5,4],[2,0,2],[3,3,5],[5,1,3],[2,4,3],[0,5,2]].forEach(([t, start, n]) => {
+    const g = []; for (let k = 0; k < n; k++) g.push(seats[t * 8 + (start + k) % 8]); order.push(g);
+  });
+  let taken = 0;
+  const fill = g => { g.forEach(s => s.classList.add('on')); taken += g.length; count.textContent = taken; };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    order.forEach(fill);
+  } else {
+    order.forEach((g, i) => setTimeout(() => fill(g), 600 + i * 700));
+  }
+</script>
+</body>
+</html>
